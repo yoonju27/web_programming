@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>메뉴선정 프로그램</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+    }
+    .section {
+      margin: 20px 0;
+    }
+    label, select, input[type="checkbox"] {
+      margin-right: 10px;
+    }
+    .restaurant {
+      margin-top: 15px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>메뉴선정 프로그램</h1>
+
+  <!-- 시간대 선택 -->
+  <div class="section">
+    <h3>식사 시간 선택</h3>
+    <button onclick="selectMeal('아침')">아침</button>
+    <button onclick="selectMeal('점심')">점심</button>
+    <button onclick="selectMeal('저녁')">저녁</button>
+    <p id="mealResult"></p>
+  </div>
+
+  <!-- 음식 카테고리 선택 -->
+  <div class="section">
+    <h3>음식 카테고리 선택</h3>
+    <label><input type="checkbox" name="type" value="한식"> 한식</label>
+    <label><input type="checkbox" name="type" value="중식"> 중식</label>
+    <label><input type="checkbox" name="type" value="일식"> 일식</label>
+    <label><input type="checkbox" name="type" value="샐러드"> 샐러드</label>
+    <label><input type="checkbox" name="type" value="양식"> 양식</label>
+    <br>
+    <label for="form">형태별:</label>
+    <select id="form">
+      <option value="면">면</option>
+      <option value="밥">밥</option>
+      <option value="빵">빵</option>
+      <option value="샐러드">샐러드</option>
+    </select>
+  </div>
+
+  <!-- 위치 기반 맛집 추천 -->
+  <div class="section">
+    <h3>내 위치 기반 맛집 추천</h3>
+    <button onclick="getLocation()">위치 기반 추천 보기</button>
+    <div id="location"></div>
+    <div id="recommendations"></div>
+  </div>
+
+  <script>
+    let selectedMeal = "";
+    const dummyRestaurants = [
+      { name: "고봉 한식당", meal: ["점심", "저녁"], type: "한식", form: "밥", rating: 4.5, review: "든든해요", reserve: true },
+      { name: "멘야 일식라멘", meal: ["아침", "점심"], type: "일식", form: "면", rating: 4.2, review: "국물이 최고", reserve: false },
+      { name: "상하이 중화요리", meal: ["저녁"], type: "중식", form: "밥", rating: 4.1, review: "가성비 좋음", reserve: true },
+      { name: "그린 샐러드바", meal: ["아침", "점심"], type: "샐러드", form: "샐러드", rating: 4.7, review: "다이어트에 최고", reserve: true },
+      { name: "파스타 정", meal: ["저녁"], type: "양식", form: "면", rating: 4.3, review: "분위기 있음", reserve: false }
+    ];
+
+    function selectMeal(meal) {
+      selectedMeal = meal;
+      document.getElementById("mealResult").textContent = `${meal} 시간대에 맞는 메뉴를 추천합니다.`;
+    }
+
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition, showError);
+      } else {
+        document.getElementById("location").textContent = "Geolocation을 지원하지 않습니다.";
+      }
+    }
+
+    function showPosition(position) {
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+      document.getElementById("location").textContent = `내 위치: 위도 ${lat}, 경도 ${lon}`;
+
+      const selectedTypes = Array.from(document.querySelectorAll("input[name='type']:checked")).map(el => el.value);
+      const selectedForm = document.getElementById("form").value;
+
+      const filtered = dummyRestaurants.filter(r =>
+        r.meal.includes(selectedMeal) &&
+        selectedTypes.includes(r.type) &&
+        r.form === selectedForm
+      );
+
+      const container = document.getElementById("recommendations");
+      container.innerHTML = "<h4>추천 맛집 목록</h4>";
+
+      if (filtered.length === 0) {
+        container.innerHTML += "<p>조건에 맞는 맛집이 없습니다.</p>";
+      } else {
+        filtered.forEach(r => {
+          container.innerHTML += `
+            <div class="restaurant">
+              <strong>${r.name}</strong><br>
+              카테고리: ${r.type} / 형태: ${r.form}<br>
+              평점: ${r.rating}<br>
+              리뷰: ${r.review}<br>
+              예약 가능: ${r.reserve ? "O" : "X"}
+            </div>
+          `;
+        });
+      }
+    }
+
+    function showError(error) {
+      switch (error.code) {
+        case error.PERMISSION_DENIED:
+          alert("사용자가 위치 정보 요청을 거부했습니다.");
+          break;
+        case error.POSITION_UNAVAILABLE:
+          alert("위치 정보를 사용할 수 없습니다.");
+          break;
+        case error.TIMEOUT:
+          alert("위치 정보 요청 시간이 초과되었습니다.");
+          break;
+        default:
+          alert("알 수 없는 오류가 발생했습니다.");
+          break;
+      }
+    }
+  </script>
+</body>
+</html>
