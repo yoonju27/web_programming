@@ -1,0 +1,445 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>한성대 구석구석</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      padding: 0;
+      
+    }
+
+.header {
+  background-color: #003366;
+  color: white;
+  text-align: center;
+  padding: 30px 0;
+  font-size: 50px;
+  font-weight: bold;
+  position: relative;
+  overflow: hidden; /* 스티커가 넘치지 않도록 */
+}
+
+/* 스티커가 걸어가는 느낌 애니메이션 */
+@keyframes walkSticker {
+  0%   { left: 100%; }
+  100% { left: -150px; } /* 이미지 너비보다 살짝 더 나감 */
+}
+
+.title-sticker {
+  position: absolute;
+  top: 10px; /* 헤더 위에 고정 위치 */
+  height: 100px;
+  animation: walkSticker 20s linear infinite;
+}
+
+/* 텍스트는 중앙에 그대로 유지 */
+.title-text {
+  position: relative;
+  z-index: 1;
+  color: white;
+  font-weight: bold;
+  /* 검은색 외곽선 느낌 */
+  text-shadow:
+     -1px -1px 0 #000,
+      1px -1px 0 #000,
+     -1px  1px 0 #000,
+      1px  1px 0 #000;
+}
+  .content {
+  display: flex;
+  flex-wrap: nowrap;  /* 줄바꿈 방지 */
+  padding: 20px;
+}
+
+.map-container {
+  position: relative;
+  width: 100%;
+  max-width: 1400px; /* 더 키운 크기 */
+  margin: 0 auto;
+  aspect-ratio: 1280 / 866;
+  overflow: visible;
+}
+
+.map-image {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  margin-left: 0; /* ← 이거 제거 */
+}
+
+
+
+
+
+   .sidebar {
+  width: 240px;
+  min-width: 240px;  /* 너비 줄어드는 것 방지 */
+  flex-shrink: 0;     /* 작아지지 않게 */
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+    .menu-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .menu-group > button {
+      background-color: #ddd;
+      color: #333;
+      padding: 12px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .menu-group > button:hover {
+      background-color: #ccc;
+      transform: scale(1.05);
+    }
+
+    .submenu {
+      display: none;
+      margin-top: 10px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .submenu.show {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .submenu button {
+      background-color: #444;
+      color: white;
+      padding: 10px 15px;
+      font-size: 14px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .submenu button:hover {
+      background-color: #222;
+      transform: scale(1.1);
+    }
+
+   .marker {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background-color: red;
+  border-radius: 50%;
+  border: 2px solid white;
+  cursor: pointer;
+  box-shadow: 0 0 5px rgba(0,0,0,0.5);
+  transform: translate(-50%, -50%); /* 중심 기준으로 위치 정렬 */
+  display: none;
+}
+
+
+    .marker:hover {
+      transform: scale(1.3);
+    }
+ @media screen and (max-width: 1000px) {
+  .content {
+    flex-direction: column !important; /* 세로 배치로 강제 */
+  }
+
+  .map-container {
+    order: 0;   /* 먼저 나오도록 설정 (기본값) */
+    width: 100%;
+    max-width: 1000px;
+    margin-bottom: 20px;
+  }
+
+  .sidebar {
+    order: 1; /* 사진 다음에 나오도록 설정 */
+    width: 100%;
+    min-width: unset;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .menu-group {
+    flex: 1 1 30%;
+    min-width: 200px;
+    margin-bottom: 10px;
+  }
+
+  .menu-group > button {
+    width: 100%;
+  }
+
+  .submenu {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 8px;
+  }
+
+  .submenu button {
+    margin: 3px;
+  }
+}
+
+  </style>
+</head>
+<body>
+<div class="header">
+  <span class="title-text">한성대 구석구석</span>
+  <img src="https://i.namu.wiki/i/JgcMsz1rLXhb3axKCMxr3DTgKg4Kfmp8fis1fA8fqBTngfoA-lUBAy56FfQMEnBUksScvKYPE1-458pcRtsQPwVioLOZFMU8tbfLQOVw1rus-bI98Jf9Ey8lcnPIwutX_euSoFjD1ipCELLu5TNLUg.webp" class="title-sticker" />
+</div>
+
+</div>  <div class="content">
+    <div class="sidebar">
+
+      <div class="menu-group">
+        <button>편의시설</button>
+        <div class="submenu">
+          <button>흡연실</button>
+          <button>편의점</button>
+          <button>식당</button>     
+          <button>휴게공간</button>
+          <button>카페</button>
+          <button>식사가능장소</button>
+          <button>기타</button>
+        </div>
+      </div>
+
+      <div class="menu-group">
+        <button>예약시설</button>
+        <div class="submenu">
+          <button data-target="gym">체육관 </button>
+          <button>상상베이스</button>
+          <button>상상파크</button>
+           <button>풋살장</button>
+
+                    <button>집중열람실</button>
+        </div>
+      </div>
+
+      <div class="menu-group">
+        <button>자습시설</button>
+        <div class="submenu">
+          <button data-marker="st-base">상상베이스</button>
+          <button data-marker="st-park">상상파크</button>
+          <button>창의 열람실</button>
+          <button data-marker="st-focus">집중열람실</button>
+          <button>자료 열람실</button>
+          <button>코딩 라운지</button>
+          <button>글로벌 라운지</button>
+
+
+          
+          
+        </div>
+      </div>
+
+      <div class="menu-group">
+        <button>운동시설</button>
+        <div class="submenu">
+          <button>헬스장</button>
+                   <button>탁구장</button>
+          <button data-marker="gym-2">체육관</button>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="map-container">
+      <img src="https://i.imgur.com/HTCJuQ7.png" alt="지도" class="map-image" />
+
+      
+      <div class="marker smoking-room" style="top:63%; left:66%;"></div> <!-- 학송관 -->
+      <div class="marker smoking-room" style="top:48%; left:36.5%;"></div> <!-- 미래관 -->
+      <div class="marker smoking-room" style="top:16.7%; left:47.5%;"></div> <!-- 공학관 A -->
+      <div class="marker smoking-room" style="top:70%; left:44%;"></div> <!-- 우촌관 -->
+
+      <div class="marker convenience-store" style="top: 17%; left: 41.5%;"></div> <!-- 상빌 -->
+      <div class="marker convenience-store" style="top: 45%; left: 32%;"></div> <!-- 식당 -->
+
+      <div class="marker restaurant" style="top: 45%; left: 32%;"></div> <!-- 식당 -->
+      <div class="marker restaurant" style="top: 42.5%; left: 44.5%;"></div> <!-- 상상관 -->
+     
+      <div class="marker eat" style="top: 42.5%; left: 44.5%;"></div> <!-- 상상관 -->
+      <div class="marker eat" style="top: 51.5%; left: 55.9%;"></div> <!-- 잔디광장 -->
+
+      <div class="marker cafe" style="top:48%; left:36.5%;"></div> <!-- 그라지에 -->
+      <div class="marker cafe" style="top:34.5%; left:51.5%;"></div> <!-- 오뜨 -->
+      <div class="marker cafe" style="top:42.5%; left:44.5%;"></div> <!-- 팥고당 머시기 -->
+
+
+	<div class="marker rest" style="top:42.5%; left:44.5%;"></div> <!-- 여학생 휴게실 -->
+	<div class="marker rest" style="top:34.5%; left:51.5%;"></div> <!-- 상상파크 -->
+        <div class="marker rest" style="top:17%; left:41.5%;"></div> <!-- 상상빌리지  -->
+
+                
+         
+        <div class="marker gym" style="top:36%; left:19.5%;"></div> <!-- 낙산관 -->
+         <div class="marker gym" style="top:42.5%; left:44.5%;"></div> <!-- 상상관 -->
+        
+        
+
+         
+
+         <div class="marker base" style="top:42.5%; left:44.5%;"></div> <!-- 상상베이스 -->
+
+         <div class="marker park" style="top:34.5%; left:51.5%;"></div> <!-- 상상파크 -->
+   
+         <div class="marker global" style="top:48%; left:36.5%;"></div> <!-- 글로벌 라운지 -->
+
+        <div class="marker focus" style="top:48%; left:36.5%;"></div> <!-- 집중 열람실 -->
+ 
+
+        <div class="marker st-base" style="top:55%; left:46%;"></div> <!-- 상상베이스 -->
+  
+        <div class="marker st-park" style="top:43%; left:54%;"></div> <!-- 상상파크 -->
+
+       <div class="marker reading" style="top:48%; left:36.5%;"></div> <!-- 창의 열람실 -->
+        
+       <div class="marker st-focus" style="top:48%; left:36.5%;"></div> <!-- 집중 열람실 -->
+    
+       <div class="marker library" style="top:48%; left:36.5%;"></div> <!-- 자료 열람실 -->
+
+       <div class="marker fitness" style="top:36%; left:19.5%;"></div> <!-- 헬스장 낙산관 -->
+       <div class="marker fitness" style="top:17%; left:41.5%;"></div> <!-- 상상빌리지 -->
+
+       <div class="marker football" style="top:50%; left:63%;"></div> <!-- 풋살장 -->
+
+       <div class="marker table-tennis" style="top:17%; left:41.5%;"></div> <!-- 탁구장 -->
+
+       <div class="marker sang-B2" style="top:50%; left:46%;"></div> <!-- 상상관 -->
+       <div class="marker gym-2" style="top:36%; left:19.5%;"></div> <!-- 낙산관 -->
+       <div class="marker gym-2" style="top:42.5%; left:44.5%;"></div> <!-- 낙산관 -->
+
+       <div class="marker coding" style="top:23.5%; left:44.5%;"></div> <!-- 코딩 라운지 -->
+         
+
+
+
+    </div>
+  </div>
+
+  <script>
+    // 메뉴 토글
+    document.querySelectorAll('.menu-group > button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const submenu = btn.nextElementSibling;
+        if (submenu.classList.contains('show')) {
+          submenu.classList.remove('show');
+        } else {
+          document.querySelectorAll('.submenu').forEach(s => s.classList.remove('show'));
+          submenu.classList.add('show');
+        }
+      });
+    });
+
+    const urlMap = {
+      '흡연실': 'https://music.youtube.com/channel/UC9y5zNTG8Zfkn9I2m2cdG1A',
+      '편의점': 'https://example.com/convenience-store',
+      '식당': 'https://example.com/restaurant',
+      '휴게공간': 'https://example.com/rest-area',
+      '카페': 'https://example.com/cafe',
+      '기타': 'https://example.com/others',
+      '체육관': 'https://example.com/gym',
+      '상상베이스': 'https://example.com/sangsang-base',
+      '상상파크': 'https://example.com/sangsang-park',
+      
+      '글로벌 라운지': 'https://example.com/global-lounge',
+      '집중열람실': 'https://example.com/focus-room',
+      '자습-상상베이스': 'https://example.com/sangsang-base2',
+      '자습-상상파크': 'https://example.com/sangsang-park2',
+      '창의 열람실': 'https://example.com/creative-reading-room',
+      '자습-집중 열람실': 'https://example.com/focus-room2',
+      '자료 열람실': 'https://example.com/library',
+      '헬스장': 'https://example.com/fitness-center',
+      '풋살장': 'https://example.com/football-field',
+      '탁구장': 'https://example.com/table-tennis',
+      '체육관': '',
+      '코딩 라운지' : ' ' 
+          };
+
+    const markerClassMap = {
+      '흡연실': 'smoking-room',
+      '편의점': 'convenience-store',
+      '식당': 'restaurant',
+      '카페': 'cafe',
+      '휴게공간': 'rest',
+      '식사가능장소': 'eat',
+      '기타': 'etc',
+      '체육관': 'gym',
+      '상상베이스': 'base',
+      '상상파크': 'park',
+       
+     '글로벌 라운지': 'global',
+     '집중열람실' : 'focus',
+     '자습-상상베이스' : 'st-base',
+     '자습-상상파크' : 'st-park',
+     '창의 열람실' : 'reading',
+     '자습-집중 열람실' : 'st-focus',
+     '자료 열람실' : 'library',
+     '헬스장' : 'fitness',
+     '풋살장' : 'football',
+     '탁구장' : 'table-tennis',
+     '체육관' : 'gym-2',
+     '코딩 라운지' : 'coding',
+
+
+      // 필요한 경우 여기에 추가
+    };
+
+    function hideAllMarkers() {
+      document.querySelectorAll('.marker').forEach(marker => {
+        marker.style.display = 'none';
+      });
+    }
+
+    function showMarkers(className) {
+      document.querySelectorAll(`.marker.${className}`).forEach(marker => {
+        marker.style.display = 'block';
+      });
+    }
+
+    // 마커 초기 숨김
+    hideAllMarkers();
+
+    // 하위 버튼에 hover 시 마커 표시
+    document.querySelectorAll('.submenu > button').forEach(button => {
+      const key = button.textContent.trim();
+
+      button.addEventListener('mouseover', () => {
+        hideAllMarkers();
+        if (markerClassMap[key]) {
+          showMarkers(markerClassMap[key]);
+        }
+      });
+
+      button.addEventListener('mouseout', () => {
+        hideAllMarkers();
+      });
+
+      button.addEventListener('click', () => {
+        if (urlMap[key]) {
+          window.location.href = urlMap[key];
+        } else {
+          alert('링크가 설정되어 있지 않습니다.');
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
