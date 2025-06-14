@@ -234,10 +234,10 @@
       <div class="menu-group">
         <button>자습시설</button>
         <div class="submenu">
-          <button data-marker="st-base">상상베이스</button>
-          <button data-marker="st-park">상상파크</button>
+          <button data-key="자습-상상베이스" data-marker="st-base">상상베이스</button>
+          <button data-key="자습-상상파크" data-marker="st-park">상상파크</button>
           <button>창의 열람실</button>
-          <button data-marker="st-focus">집중열람실</button>
+          <button data-key="자습-집중열람실" data-marker="st-focus">집중열람실</button>
           <button>자료 열람실</button>
           <button>코딩 라운지</button>
           <button>글로벌 라운지</button>
@@ -437,6 +437,7 @@
       });
 
       button.addEventListener('click', () => {
+         const key = button.dataset.key || button.textContent.trim();
         if (urlMap[key]) {
           window.location.href = urlMap[key];
         } else {
